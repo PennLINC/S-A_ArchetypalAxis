@@ -1,0 +1,173 @@
+---
+title: "BrainMaps"
+author: "Valerie Jill Sydnor"
+output: 
+  html_document:
+    theme: flatly
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(reshape2)
+library(matrixStats)
+library(ggseg)
+library(ggsegExtra)
+library(ggsegGlasser)
+```
+
+
+```{r}
+brains <- read.csv("./brainmaps_glasser.csv", header=TRUE) #read in cortical map data
+regions <- read.csv("./glasser_regions.csv", header=TRUE) #read in glasser parcel names
+```
+
+**Derive Axis Rankings**
+
+```{r}
+brains.ranked <- lapply(brains, function(x){ rank(x) }) #for each of the 10 cortical measures, derive unidimensional axis orderings by ranking by parcel value
+brains.ranked <- as.data.frame(brains.ranked) #format as df
+brains.ranked$T1T2ratio <- rank(-brains.ranked$T1T2ratio) # reverse order T1-weighted to T2-weighted ratio rankings so that sensorimotor regions are ranked lower (higher T1w/T2w ratio) and association regions are ranked higher (lower T1w/T2w ratio)
+brains.ranked$Externopyramidisation <- rank(-brains.ranked$Externopyramidisation) # reverse order Externopyramidisation rankings so that sensorimotor regions are ranked lower (higher externopyramidisation) and association regions are ranked higher (higher internopyramidisation)
+brains.ranked <- cbind(regions,brains.ranked) #add parcel names to df
+```
+
+**Visualize Cortical Maps**
+
+*Anatomical Hierarchy*
+```{r, message = F, warning = F}
+ggseg(.data = brains.ranked, atlas = "glasser", hemisphere = c("left"), mapping=aes(fill=T1T2ratio)) + theme_void() + scale_fill_gradient2(low= "goldenrod1", mid = "white", high = "#6f1282", guide = "colourbar", aesthetics = "fill", name = NULL, midpoint = 90)
+
+ggsave(filename = "./visualizations/T1T2Ratio.pdf", device = "pdf", dpi = 300, width = 4 , height = 4)
+```
+
+*Functional Hierarchy*
+```{r, message = F, warning = F}
+ggseg(.data = brains.ranked, atlas = "glasser", hemisphere = c("left"), mapping=aes(fill=G1.fMRI)) + theme_void() + scale_fill_gradient2(low= "goldenrod1", mid = "white", high = "#6f1282", guide = "colourbar", aesthetics = "fill", name = NULL, midpoint = 90)
+
+ggsave(filename = "./visualizations/G1fMRI.pdf", device = "pdf", dpi = 300, width = 4 , height = 4)
+```
+*Evolutionary Hierarchy*
+```{r, message = F, warning = F}
+ggseg(.data = brains.ranked, atlas = "glasser", hemisphere = c("left"), mapping=aes(fill=Evolution.Expansion)) + theme_void() + scale_fill_gradient2(low= "goldenrod1", mid = "white", high = "#6f1282", guide = "colourbar", aesthetics = "fill", name = NULL, midpoint = 90)
+
+ggsave(filename = "./visualizations/EvolutionExpansion.pdf", device = "pdf", dpi = 300, width = 4 , height = 4)
+```
+
+*Allometric Scaling*
+```{r, message = F, warning = F}
+ggseg(.data = brains.ranked, atlas = "glasser", hemisphere = c("left"), mapping=aes(fill=AllometricScaling.PNC20mm)) + theme_void() + scale_fill_gradient2(low= "goldenrod1", mid = "white", high = "#6f1282", guide = "colourbar", aesthetics = "fill", name = NULL, midpoint = 90)
+
+ggsave(filename = "./visualizations/AllometricScaling.pdf", device = "pdf", dpi = 300, width = 4 , height = 4)
+```
+
+*Aerobic Glycolysis*
+```{r, message = F, warning = F}
+ggseg(.data = brains.ranked, atlas = "glasser", hemisphere = c("left"), mapping=aes(fill=PET.AG)) + theme_void() + scale_fill_gradient2(low= "goldenrod1", mid = "white", high = "#6f1282", guide = "colourbar", aesthetics = "fill", name = NULL, midpoint = 90)
+
+ggsave(filename = "./visualizations/PETAG.pdf", device = "pdf", dpi = 300, width = 4 , height = 4)
+```
+
+*Cerebral Blood Flow*
+```{r, message = F, warning = F}
+ggseg(.data = brains.ranked, atlas = "glasser", hemisphere = c("left"), mapping=aes(fill=CBF)) + theme_void() + scale_fill_gradient2(low= "goldenrod1", mid = "white", high = "#6f1282", guide = "colourbar", aesthetics = "fill", name = NULL, midpoint = 90)
+
+ggsave(filename = "./visualizations/CBF.pdf", device = "pdf", dpi = 300, width = 4 , height = 4)
+```
+
+*Gene Expression*
+```{r, message = F, warning = F}
+ggseg(.data = brains.ranked, atlas = "glasser", hemisphere = c("left"), mapping=aes(fill=PC1.AHBA)) + theme_void() + scale_fill_gradient2(low= "goldenrod1", mid = "white", high = "#6f1282", guide = "colourbar", aesthetics = "fill", name = NULL, midpoint = 90)
+
+ggsave(filename = "./visualizations/PC1AHBA.pdf", device = "pdf", dpi = 300, width = 4 , height = 4)
+``` 
+
+*NeuroSynth*
+```{r, message = F, warning = F}
+ggseg(.data = brains.ranked, atlas = "glasser", hemisphere = c("left"), mapping=aes(fill=PC1.Neurosynth)) + theme_void() + scale_fill_gradient2(low= "goldenrod1", mid = "white", high = "#6f1282", guide = "colourbar", aesthetics = "fill", name = NULL, midpoint = 90)
+
+ggsave(filename = "./visualizations/PC1Neurosynth.pdf", device = "pdf", dpi = 300, width = 4 , height = 4)
+```
+
+*Externopyramidization*
+```{r, message = F, warning = F}
+ggseg(.data = brains.ranked, atlas = "glasser", hemisphere = c("left"), mapping=aes(fill=Externopyramidisation)) + theme_void() + scale_fill_gradient2(low= "goldenrod1", mid = "white", high = "#6f1282", guide = "colourbar", aesthetics = "fill", name = NULL, midpoint = 90)
+
+ggsave(filename = "./visualizations/Externopyramidisation.pdf", device = "pdf", dpi = 300, width = 4 , height = 4)
+```
+
+*Cortical Thickness*
+```{r, message = F, warning = F}
+ggseg(.data = brains.ranked, atlas = "glasser", hemisphere = c("left"), mapping=aes(fill=Cortical.Thickness)) + theme_void() + scale_fill_gradient2(low= "goldenrod1", mid = "white", high = "#6f1282", guide = "colourbar", aesthetics = "fill", name = NULL, midpoint = 90)
+
+ggsave(filename = "./visualizations/CorticalThickness.pdf", device = "pdf", dpi = 300, width = 4 , height = 4)
+```
+
+
+**Visualize Archetypal Sensorimotor-Association Axis**
+
+```{r, message = F, warning = F}
+brains.average.rank <- brains.ranked %>% dplyr::select(-region)
+brains.average.rank <- rowMeans(brains.average.rank) #average all 10 cortical rankings to get each parcel's average axis rank
+brains.average.rank <- cbind(regions, brains.average.rank) #add glasser parcel names to average axis rankings and convert to df
+brains.average.rank$final.rank <- rank(brains.average.rank$brains.average.rank) #rerank parcels from 1 to 180 by average axis rank to visualize the archetypal sensorimotor-association axis 
+write.csv(brains.average.rank, file="./Sensorimotor_Association_Axis_AverageRanks.csv", row.names = FALSE) #save out average ranks
+
+ggseg(.data = brains.average.rank, atlas = "glasser", hemisphere = c("left"), mapping=aes(fill=final.rank)) + theme_void() + scale_fill_gradient2(low= "goldenrod1", mid = "white", high = "#6f1282", guide = "colourbar", aesthetics = "fill", midpoint = 90)
+
+ggsave(filename = "./visualizations/AverageSAAxis.pdf", device = "pdf", dpi = 300, width = 6 , height = 6)
+```
+
+**Visualize Rank Variability**
+
+```{r, message = F, warning = F}
+brains.MAD.rank <- brains.ranked %>% dplyr::select(-region)
+brains.MAD.rank <- rowMads((as.matrix(brains.MAD.rank))) #calculate parcel median absolute deviation
+brains.MAD.rank <- cbind(regions, brains.MAD.rank) #add glasser parcel names to MAD and convert to df
+
+ggseg(.data = brains.MAD.rank, atlas = "glasser", hemisphere = c("left"), mapping=aes(fill=brains.MAD.rank)) + theme_void() +  scale_fill_gradientn(colors = c("#2B1C4F","#283063","#27376A","#264578","#26568B","#2B5F99","#467ebd","#6399d6","#a1caf7","#bcd8f7","#d4e8ff"))
+
+ggsave(filename = "./visualizations/SAAxisVariability.pdf", device = "pdf", dpi = 300, width = 6 , height = 6)
+```
+
+**Sensorimotor and Association Tertile Average Feature Z-scores**
+
+```{r}
+brains.tertiles <- cbind(brains, brains.average.rank)
+brains.tertiles <-  brains.tertiles[
+order(brains.tertiles[,13] , decreasing = FALSE), #order data for all 10 cortical measures by parcel final rank
+] 
+brains.tertiles <- brains.tertiles %>% dplyr::select(-region, -brains.average.rank, -final.rank)
+brains.tertiles <- lapply(brains.tertiles, function(x){ scale(x) }) #z-score data for each of the 10 cortical measures
+brains.tertiles <- as.data.frame(brains.tertiles) #format as df
+
+brains.lowertertile <- brains.tertiles[1:60,] #lower tertile (sensorimotor tertile)
+brains.uppertertile <- brains.tertiles[121:180,] #upper tertile (association tertile)
+
+lowertertile.mean <- lapply(brains.lowertertile, function(x){ mean(x) }) #calculate sensorimotor tertile average z-score for each of the 10 cortical measures
+uppertertile.mean <- lapply(brains.uppertertile, function(x){ mean(x) }) #calculate association tertile average z-score for each of the 10 cortical measures
+
+tertile.average.zscores <- as.data.frame(rbind(lowertertile.mean, uppertertile.mean)) 
+tertile.average.zscores[1,2] <- uppertertile.mean$T1T2ratio #switch lower and upper T1-weighted/T2-weighted ratio z-scores to correctly reflect sensorimotor versus association tertile
+tertile.average.zscores[2,2] <- lowertertile.mean$T1T2ratio #switch lower and upper T1-weighted/T2-weighted ratio z-scores to correctly reflect sensorimotor versus association tertile
+tertile.average.zscores[1,7] <- uppertertile.mean$Externopyramidisation #switch lower and upper Externopyramidisation z-scores to correctly reflect sensorimotor versus association tertile
+tertile.average.zscores[2,7] <- lowertertile.mean$Externopyramidisation #switch lower and upper Externopyramidisation z-scores to correctly reflect sensorimotor versus association tertile
+
+tertile.zscores.plotdata <- as.data.frame((t(tertile.average.zscores))) #transpose df
+tertile.zscores.plotdata <- tertile.zscores.plotdata[c(2, 1, 3, 5, 6, 4, 9, 10, 7, 8),] #reorder rows as AH, FH, EH, AS, AG, CB, GE, NS, EX, CT
+tertile.zscores.plotdata$brainmap <- rownames(tertile.zscores.plotdata) #add brainmap identifier column 
+tertile.zscores.plotdata$lowertertile.mean <- as.numeric(tertile.zscores.plotdata$lowertertile.mean)
+tertile.zscores.plotdata$uppertertile.mean <- as.numeric(tertile.zscores.plotdata$uppertertile.mean)
+
+tertile.zscores.plotdata <- melt(tertile.zscores.plotdata, id.vars=c("brainmap"), measure.vars=c("lowertertile.mean","uppertertile.mean"), variable.name = "tertile", value.name="zscore") #convert to long format for plotting
+
+ggplot(tertile.zscores.plotdata, aes(x=brainmap, y=zscore, fill=tertile)) + 
+  geom_point(color="white", shape=22, size=13) + 
+  labs(x="\n", y="\n") +
+  scale_x_discrete(limits=tertile.zscores.plotdata$brainmap) +
+  theme(panel.background = element_blank(), panel.grid = element_line(color = "gray92"),  axis.text.x = element_text(angle = 90), legend.position = "none") +
+  coord_cartesian(xlim=c(1,10)) +
+  scale_y_continuous(limits=c(-1.2,1.2)) +
+  scale_fill_manual(values=c("goldenrod1", "#6f1282"), labels=c("sensorimotor tertile","association tertile")) 
+
+ggsave(filename = "./visualizations/SAAxis_Tertile_Zscores.pdf", device = "pdf", dpi = 300, width = 6 , height = 6)
+```
