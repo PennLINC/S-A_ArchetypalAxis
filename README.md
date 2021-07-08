@@ -4,9 +4,11 @@ Code to generate Figure 2A-D in the review article "Neurodevelopment of the asso
 
 *CODE*
 
-**brainmaps.Rmd**: code to visualize brain maps for the 10 cortical features (Figure 2B), the archetypal S-A axis (Figure 2A), and S-A axis rank variability (Box 1 Figure), and to compute and visualize sensorimotor and association tertile z-scores (Figure 2D)
+**brainmaps.Rmd**: code to visualize brain maps for the 10 cortical features (Figure 2B), the archetypal S-A axis (Figure 2A), and S-A axis rank variability (Box 1 Figure), and to compute and visualize sensorimotor and association tertile z-scores (Figure 2D) \
+[brainmaps.html markdown](https://rawcdn.githack.com/PennLINC/S-A_ArchetypalAxis/c3c83963a467f0d9dfbc4e671ae4469475b387f6/brainmaps.html)
 
-**spintests.Rms**: code to generate a Spearman's rank correlation matrix for the 10 cortical features, and to quantify correlation significance using a parcel-based spatial permutation spin test (*p*spin) (Figure 2C)
+**spintests.Rms**: code to generate a Spearman's rank correlation matrix for the 10 cortical features, and to quantify correlation significance using a parcel-based spatial permutation spin test (*p*spin) (Figure 2C) \
+[spintests.html markdown](https://rawcdn.githack.com/PennLINC/S-A_ArchetypalAxis/c3c83963a467f0d9dfbc4e671ae4469475b387f6/spintests.html)
 
 *DATA* 
 
