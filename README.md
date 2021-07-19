@@ -1,6 +1,6 @@
 # S-A Archetypal Axis
 
-Code to generate Figure 2A-D in the review article "Neurodevelopment of the association cortices: Patterns, mechanisms, and implications for psychopathology", Sydnor et al., 2021, Neuron
+Code to generate Figure 2A-D in the review article "Neurodevelopment of the association cortices: Patterns, mechanisms, and implications for psychopathology", Sydnor et al., 2021, Neuron https://doi.org/10.1016/j.neuron.2021.06.016. Please cite this work if you use the archetypal S-A axis rankings provided in Sensorimotor_Association_Axis_AverageRanks.csv
 
 *CODE*
 
