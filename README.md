@@ -22,9 +22,9 @@ Includes code used to generate Figure 2A-D in Sydnor et al., 2021, Neuron.
 
 
 *SCHAEFER400_17NETWORK* \
-**brainmaps.Rmd**: code to extract measures for the 10 cortical features and compute S-A axis rankings 
-**brainmaps_schaefer.csv**: macrostructural, microstructural, functional, metabolic, transcriptomic, and evolutionary cortical features, averaged in Schaefer400 parcels. Note, here Externopyramidization is replaced by BigBrainWarp histological gradient (Hist-G2).
-**schaefer400_regions.csv**: list of Schaefer400 17 network parcel names (rows correspond to rows in brainmaps_schaefer.csv)
-**Sensorimotor_Association_Axis_AverageRanks.csv**: The S-A axis in Schaefer400. Average rankings and final rankings are provided for the whole brain (ranked 1-400) and for left and right hemispheres individually (ranked 1-200)
+* **brainmaps.Rmd**: code to extract measures for the 10 cortical features and compute S-A axis rankings 
+* **brainmaps_schaefer.csv**: macrostructural, microstructural, functional, metabolic, transcriptomic, and evolutionary cortical features, averaged in Schaefer400 parcels. Note, here Externopyramidization is replaced by BigBrainWarp histological gradient (Hist-G2).
+* **schaefer400_regions.csv**: list of Schaefer400 17 network parcel names (rows correspond to rows in brainmaps_schaefer.csv)
+* **Sensorimotor_Association_Axis_AverageRanks.csv**: The S-A axis in Schaefer400. Average rankings and final rankings are provided for the whole brain (ranked 1-400) and for left and right hemispheres individually (ranked 1-200)
 
 
