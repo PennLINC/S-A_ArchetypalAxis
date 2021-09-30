@@ -27,11 +27,13 @@ Raw data for the 10 cortical features can be found in the associated github repo
 <br>
 Sensorimotor-Association axis rankings can be found in the associated github repo in $atlas/Sensorimotor_Association_Axis_AverageRanks.csv. 
 <br>
+<br>
 Please cite this work if you use the S-A axis rankings provided in Sensorimotor_Association_Axis_AverageRanks.csv.
 
 Below is a detailed description of all files in PennLINC's S-A_ArchetypalAxis repo:
 
 *GLASSER360_MMP*
+<br>
 Includes code used to generate Figure 2A-D in Sydnor et al., 2021, Neuron.
 
 * [brainmaps.Rmd](https://github.com/PennLINC/S-A_ArchetypalAxis/blob/main/Glasser360_MMP/brainmaps.Rmd): code to visualize brain maps for the 10 cortical features (Figure 2B), the archetypal S-A axis (Figure 2A), and S-A axis rank variability (Box 1 Figure), and to compute and visualize sensorimotor and association tertile z-scores (Figure 2D) 
@@ -41,7 +43,8 @@ Includes code used to generate Figure 2A-D in Sydnor et al., 2021, Neuron.
 * [Sensorimotor_Association_Axis_AverageRanks.csv](https://github.com/PennLINC/S-A_ArchetypalAxis/blob/main/Glasser360_MMP/Sensorimotor_Association_Axis_AverageRanks.csv): each parcel's average ranking (raw mean) and final ranking (re-ranked average rank). Average rankings were obtained by averaging individual parcel rankings across the 10 cortical features. Average rankings were re-ranked from 1-180 to derive the archetypal S-A axis (displayed in Figure 2A)
 
 
-*SCHAEFER400_17NETWORK* 
+*SCHAEFER400_17NETWORK*  
+<br>
 Includes code to generate all brain maps in the Schaefer400 atlas.
 
 * [brainmaps.Rmd](https://github.com/PennLINC/S-A_ArchetypalAxis/blob/main/Schaefer400_17Network/brainmaps.Rmd): code to extract measures for the 10 cortical features and compute S-A axis rankings 
