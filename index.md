@@ -1,9 +1,9 @@
-# NEURODEVELOPMENTAL OF THE ASSOCIATION CORTICES
+# NEURODEVELOPMENT OF THE ASSOCIATION CORTICES
 
 *The human brain undergoes a prolonged period of cortical development that spans multiple decades. During childhood and adolescence, cortical development progresses from lower-order, primary and unimodal cortices with sensory and motor functions to higher-order, transmodal association cortices subserving executive, socioemotional, and mentalizing functions. The spatiotemporal patterning of cortical maturation thus proceeds in a hierarchical manner, conforming to an evolutionarily rooted, sensorimotor-to-association axis of cortical organization. This developmental program has been characterized by data derived from multimodal human neuroimaging and is linked to the hierarchical unfolding of plasticity-related neurobiological events. Critically, this developmental program serves to enhance feature variation between lower-order and higher-order regions, thus endowing the brain’s association cortices with unique functional properties. However, accumulating evidence suggests that protracted plasticity within late-maturing association cortices, which represents a defining feature of the human developmental program, also confers risk for diverse developmental psychopathologies.*
 
 ### Current Project Status
-Published in Neuron (2021) as **Neurodevelopment of the association cortices: Patterns, mechanisms, and implications for psychopathology"
+Published in Neuron (2021) as **Neurodevelopment of the association cortices: Patterns, mechanisms, and implications for psychopathology**
 
 ### Publication DOI
 **<https://doi.org/10.1016/j.neuron.2021.06.016>**
@@ -20,11 +20,12 @@ Bart Larsen, Dani S. Bassett, Aaron Alexander-Bloch, Damien A. Fair, Conor Listo
 ### Github Repository
 <https://github.com/PennLINC/S-A_ArchetypalAxis>
 
-# SENSORIMOTOR-ASSOCIATION AXIS
-The 10 cortical feature maps and the archetypal sensorimotor-association axis displayed in Figures 2B and 2A, respectively, of Sydnor et al., 2021, Neuron are available here in Glasser360 and Schaefer400 atlases.
+# THE SENSORIMOTOR-ASSOCIATION AXIS
+The 10 cortical feature maps and the archetypal sensorimotor-association axis displayed in Figures 2B and 2A, respectively, of Sydnor et al., 2021, Neuron are available here in Glasser360 and Schaefer400 atlases.  
 <br>
-Raw data for the 10 cortical features can be found in the associated github repo in $atlas/brainmaps_$atlas.csv
-Sensorimotor-Association axis rankings can be found in the associated github repo in $atlas/Sensorimotor_Association_Axis_AverageRanks.csv
+Raw data for the 10 cortical features can be found in the associated github repo in $atlas/brainmaps_$atlas.csv. 
+<br>
+Sensorimotor-Association axis rankings can be found in the associated github repo in $atlas/Sensorimotor_Association_Axis_AverageRanks.csv. 
 <br>
 Please cite this work if you use the S-A axis rankings provided in Sensorimotor_Association_Axis_AverageRanks.csv.
 
