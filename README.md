@@ -6,7 +6,7 @@
 - Sensorimotor-Association axis rankings can be found here in $atlas/Sensorimotor_Association_Axis_AverageRanks.csv
 
 A more detailed description of the files is provided below:
-
+\
 
 *GLASSER360_MMP* \
 Includes code used to generate Figure 2A-D in Sydnor et al., 2021, Neuron.
@@ -17,16 +17,14 @@ Includes code used to generate Figure 2A-D in Sydnor et al., 2021, Neuron.
 [spintests.html markdown](https://rawcdn.githack.com/PennLINC/S-A_ArchetypalAxis/c3c83963a467f0d9dfbc4e671ae4469475b387f6/spintests.html)
 **brainmaps_glasser.csv**: macrostructural, microstructural, functional, metabolic, transcriptomic, and evolutionary cortical features, averaged in left hemisphere Glasser parcels (10 fundamental cortical features displayed in Figure 2B)
 **glasser_regions.csv**: list of left hemisphere Glasser parcel names (rows correspond to rows in brainmaps_glasser.csv)
-
 **Sensorimotor_Association_Axis_AverageRanks.csv**: each parcel's average ranking (raw mean) and final ranking (re-ranked average rank). Average rankings were obtained by averaging individual parcel rankings across the 10 cortical features. Average rankings were re-ranked from 1-180 to derive the archetypal S-A axis (displayed in Figure 2A)
-
+\
 
 
 *SCHAEFER400_17NETWORK* \
 **brainmaps.Rmd**: code to extract measures for the 10 cortical features and compute S-A axis rankings 
 **brainmaps_schaefer.csv**: macrostructural, microstructural, functional, metabolic, transcriptomic, and evolutionary cortical features, averaged in Schaefer400 parcels. Note, here Externopyramidization is replaced by BigBrainWarp histological gradient (Hist-G2).
 **schaefer400_regions.csv**: list of Schaefer400 17 network parcel names (rows correspond to rows in brainmaps_schaefer.csv)
-
 **Sensorimotor_Association_Axis_AverageRanks.csv**: The S-A axis in Schaefer400. Average rankings and final rankings are provided for the whole brain (ranked 1-400) and for left and right hemispheres individually (ranked 1-200)
 
 
