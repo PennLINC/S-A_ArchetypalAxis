@@ -1,0 +1,141 @@
+---
+title: "BrainMaps Schaefer"
+author: "Valerie Jill Sydnor"
+output: 
+  html_document:
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+library(cifti)
+library(ggseg)
+library(ggsegSchaefer) #remotes::install_github("monicathieu/ggsegSchaefer")
+library(dplyr)
+```
+
+```{r}
+schaefer.parcel.labels <- read.csv("/Users/valeriesydnor/Software/S-A_ArchetypalAxis/Schaefer400_17Network/schaefer400_regions.csv", header = T) #read in schaefer parcel labels, 400 parcels, 17 network 
+```
+
+**Get Cortical Map Data**
+
+```{r, warning=F}
+#read in parcellated cortical map cifti files
+setwd("/Users/valeriesydnor/Software/mappys/")
+
+brains <- matrix(data=NA, nrow=400, ncol=10)
+colnames(brains) <- c("T1T2ratio","G1.fMRI","Evolution.Expansion","AllometricScaling.PNC20mm","PET.AG","CBF","PC1.AHBA","PC1.Neurosynth","BigBrain.Histology","Cortical.Thickness")
+
+#Anatomical Hierarchy
+AH <- read_cifti("myelin_400.pscalar.nii")
+brains[,1] <- AH$data
+
+#Functional Hierarchy
+FH <- read_cifti("sa_400.pscalar.nii")
+brains[,2] <- FH$data[,1]
+
+#Evolutionary Hierarchy
+EH <- read_cifti("evo_expansion_hill_400.pscalar.nii")
+brains[,3] <- EH$data
+  
+#Allometric Scaling
+AS <- read_cifti("alloscale_400.pscalar.nii")
+brains[,4] <- AS$data
+
+#Aerobic Glycolysis
+AG <- read_cifti("PETAG_400.pscalar.nii")
+brains[,5] <- AG$data
+
+#Cerebral Blood Flow
+CB <- read_cifti("cbf_400.pscalar.nii")
+brains[,6] <- CB$data
+
+#Gene Expression
+GE <- read_cifti("brain_pc1_400.pscalar.nii")
+brains[,7] <- GE$data
+
+#NeuroSynth
+NS <- read_cifti("NeuroSynth_PC1_400.pscalar.nii")
+brains[,8] <- NS$data
+
+#BigBrain Histology
+BB <- read_cifti("BigBrain_G2Hist_400.pscalar.nii")
+brains[,9] <- BB$data
+
+#Cortical Thickness
+CT <- read_cifti("corrthick_400.pscalar.nii")
+brains[,10] <- CT$data
+
+brains <- as.data.frame(brains)
+```
+
+**Derive Individual Axis Rankings (Whole Brain)**
+
+```{r}
+brains.ranked <- lapply(brains, function(x){ rank(x) }) #for each of the 10 cortical measures, derive unidimensional axis orderings by ranking by parcel value
+brains.ranked <- as.data.frame(brains.ranked) #format as df
+brains.ranked$T1T2ratio <- rank(-brains.ranked$T1T2ratio) # reverse order T1-weighted to T2-weighted ratio rankings so that sensorimotor regions are ranked lower (higher T1w/T2w ratio) and association regions are ranked higher (lower T1w/T2w ratio)
+brains.ranked$PC1.AHBA <- rank(-brains.ranked$PC1.AHBA) # reverse order PC1 of brain expressed genes rankings so that sensorimotor regions are ranked lower and association regions are ranked higher 
+brains.ranked$BigBrain.Histology <- rank(-brains.ranked$BigBrain.Histology) # reverse order histology rankings so that sensorimotor regions are ranked lower and association regions are ranked higher
+```
+
+**Archetypal Sensorimotor-Association Axis (Whole Brain)**
+
+```{r, message = F, warning = F}
+brains.average.rank <- rowMeans(brains.ranked) #average all 10 cortical rankings to get each parcel's average axis rank
+brains.average.rank <- as.data.frame(brains.average.rank) #format as df
+brains.average.rank$final.rank <- rank(brains.average.rank$brains.average.rank) #rerank parcels from 1 to 400 by average axis rank to visualize the archetypal sensorimotor-association axis 
+brains.average.rank$label <- schaefer.parcel.labels$label
+colnames(brains.average.rank) <- c("averagerank.wholebrain","finalrank.wholebrain","label")
+```
+
+```{r}
+ggseg(.data = brains.average.rank, atlas = "schaefer17_400", mapping=aes(fill=finalrank.wholebrain), position=c("stacked")) + theme_void() + scale_fill_gradient2(low= "goldenrod1", mid = "white", high = "#6f1282", guide = "colourbar", aesthetics = "fill", name = NULL, midpoint = 200)
+```
+
+**Repeat for Left and Right Hemispheres Individually**
+
+```{r}
+hemisphere.SAaxis <- function(hemi){
+  if(hemi == "left"){
+    brains.hemi <- brains[1:200,]}
+  if(hemi == "right"){
+    brains.hemi <- brains[201:400,]}
+  
+  brains.ranked.hemi <- lapply(brains.hemi, function(x){ rank(x) }) 
+  brains.ranked.hemi <- as.data.frame(brains.ranked.hemi)
+  brains.ranked.hemi$T1T2ratio <- rank(-brains.ranked.hemi$T1T2ratio) 
+  brains.ranked.hemi$PC1.AHBA <- rank(-brains.ranked.hemi$PC1.AHBA) 
+  brains.ranked.hemi$BigBrain.Histology <- rank(-brains.ranked.hemi$BigBrain.Histology)
+  
+  brains.hemi.average.rank <- rowMeans(brains.ranked.hemi)
+  brains.hemi.average.rank <- as.data.frame(brains.hemi.average.rank)
+  brains.hemi.average.rank$final.rank.hemi <- rank(brains.hemi.average.rank$brains.hemi.average.rank)
+  return(brains.hemi.average.rank)
+}
+```
+
+```{r}
+rankings.lefthemisphere <- hemisphere.SAaxis("left")
+rankings.righthemisphere <- hemisphere.SAaxis("right")
+rankings.hemisphere <- rbind(rankings.lefthemisphere, rankings.righthemisphere)
+colnames(rankings.hemisphere) <- c("averagerank.hemisphere","finalrank.hemisphere")
+```
+
+```{r}
+brains.average.rank <- cbind(brains.average.rank, rankings.hemisphere)
+brains.average.rank <- brains.average.rank[, c(1,2,4,5,3)]
+```
+
+```{r}
+ggseg(.data = brains.average.rank[1:200,], atlas = "schaefer17_400", hemi=c("left"), mapping=aes(fill=finalrank.hemisphere), position=c("stacked")) + theme_void() + scale_fill_gradient2(low= "goldenrod1", mid = "white", high = "#6f1282", guide = "colourbar", aesthetics = "fill", name = NULL, midpoint = 100)
+```
+```{r}
+ggseg(.data = brains.average.rank[201:400,], atlas = "schaefer17_400", hemi=c("right"), mapping=aes(fill=finalrank.hemisphere), position=c("stacked")) + theme_void() + scale_fill_gradient2(low= "goldenrod1", mid = "white", high = "#6f1282", guide = "colourbar", aesthetics = "fill", name = NULL, midpoint = 100)
+```
+
+**Save Output**
+```{r}
+write.csv(brains, file="/Users/valeriesydnor/Software/S-A_ArchetypalAxis/Schaefer400_17Network/brainmaps_schaefer.csv", row.names = FALSE)
+write.csv(brains.average.rank, file="/Users/valeriesydnor/Software/S-A_ArchetypalAxis/Schaefer400_17Network/Sensorimotor_Association_Axis_AverageRanks.csv", row.names = FALSE, quote = FALSE)
+```
