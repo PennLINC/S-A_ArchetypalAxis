@@ -2,13 +2,13 @@
 
 **The archetypal sensorimotor-association (S-A) axis from "Neurodevelopment of the association cortices: Patterns, mechanisms, and implications for psychopathology", Sydnor et al., 2021, Neuron https://doi.org/10.1016/j.neuron.2021.06.016 is provided in Glasser360 and Schaefer400 atlases. Please cite this work if you use the S-A axis rankings provided in Sensorimotor_Association_Axis_AverageRanks.csv.**
 
-- Raw data for the 10 cortical features can be found in $atlas/brainmaps_$atlas.csv \
+- Raw data for the 10 cortical features can be found in $atlas/brainmaps_$atlas.csv 
 - Sensorimotor-Association axis rankings can be found here in $atlas/Sensorimotor_Association_Axis_AverageRanks.csv
 
 A more detailed description of the files is provided below:
-\
 
-*GLASSER360_MMP* \
+
+*GLASSER360_MMP* 
 Includes code used to generate Figure 2A-D in Sydnor et al., 2021, Neuron.
 
 **brainmaps.Rmd**: code to visualize brain maps for the 10 cortical features (Figure 2B), the archetypal S-A axis (Figure 2A), and S-A axis rank variability (Box 1 Figure), and to compute and visualize sensorimotor and association tertile z-scores (Figure 2D) \
@@ -18,7 +18,7 @@ Includes code used to generate Figure 2A-D in Sydnor et al., 2021, Neuron.
 **brainmaps_glasser.csv**: macrostructural, microstructural, functional, metabolic, transcriptomic, and evolutionary cortical features, averaged in left hemisphere Glasser parcels (10 fundamental cortical features displayed in Figure 2B)
 **glasser_regions.csv**: list of left hemisphere Glasser parcel names (rows correspond to rows in brainmaps_glasser.csv)
 **Sensorimotor_Association_Axis_AverageRanks.csv**: each parcel's average ranking (raw mean) and final ranking (re-ranked average rank). Average rankings were obtained by averaging individual parcel rankings across the 10 cortical features. Average rankings were re-ranked from 1-180 to derive the archetypal S-A axis (displayed in Figure 2A)
-\
+
 
 
 *SCHAEFER400_17NETWORK* \
