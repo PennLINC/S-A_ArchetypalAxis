@@ -8,7 +8,7 @@
 A more detailed description of the files is provided below:
 
 
-*GLASSER360_MMP* 
+*GLASSER360_MMP* \
 Includes code used to generate Figure 2A-D in Sydnor et al., 2021, Neuron.
 
 **brainmaps.Rmd**: code to visualize brain maps for the 10 cortical features (Figure 2B), the archetypal S-A axis (Figure 2A), and S-A axis rank variability (Box 1 Figure), and to compute and visualize sensorimotor and association tertile z-scores (Figure 2D) \
