@@ -62,4 +62,4 @@ Includes code to generate all brain maps in the Schaefer400 atlas.
 *Gene Expression*: Burt et al., 2018, Nat Neurosci  
 *NeuroSynth*: Yarkoni et al., 2011, Nat Methods  
 *Externopyramidization*: Paquola et al., 2020, PLoS Biol / *HIST-G2*: Paquola et al., 2021, eLife  
-*Cortical Thickness* Glasser et al., 2016, Nature  
+*Cortical Thickness*: Glasser et al., 2016, Nature  
