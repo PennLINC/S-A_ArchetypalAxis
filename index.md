@@ -20,7 +20,7 @@ Bart Larsen, Dani S. Bassett, Aaron Alexander-Bloch, Damien A. Fair, Conor Listo
 <https://github.com/PennLINC/S-A_ArchetypalAxis>
 
 # THE SENSORIMOTOR-ASSOCIATION AXIS
-The 10 cortical feature maps and the archetypal sensorimotor-association (S-A) axis displayed in Figures 2B and 2A (respectively) of Sydnor et al., 2021, Neuron are available here in Glasser360_MMP and Schaefer400_17Network atlases.  
+The 10 cortical feature maps and the archetypal sensorimotor-association (S-A) axis displayed in Figures 2B and 2A (respectively) of Sydnor et al., 2021, Neuron are available here in Glasser360MMP and Schaefer400_17Network atlases.  
 <br>
 Raw data for the 10 cortical features can be found in the associated github repo in $atlas/brainmaps_$atlas.csv. These are macrostructural, microstructural, functional, metabolic, transcriptomic, and evolutionary features that exhibit systematic variation between lower-order primary sensorimotor regions and higher-order transmodal association regions along the S-A cortical axis.
 <br>
