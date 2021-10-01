@@ -52,7 +52,7 @@ Includes code to generate all brain maps in the Schaefer400 atlas.
 <br>
 <br>
 <br>
-+
++  
 *Anatomical Hierarchy*: Glasser and Van Essen, 2011, J Neurosci  
 *Functional Hierarchy*: Margulies et al., 2016, PNAS  
 *Evolutionary Hierarchy*: Hill et al., 2010, PNAS  
