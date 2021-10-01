@@ -53,13 +53,13 @@ Includes code to generate all brain maps in the Schaefer400 atlas.
 <br>
 <br>
 +
-*Anatomical Hierarchy*: Glasser and Van Essen, 2011, J Neurosci
-*Functional Hierarchy*: Margulies et al., 2016, PNAS
-*Evolutionary Hierarchy*: Hill et al., 2010, PNAS
-*Allometric Scaling*: Reardon, Seidlitz, et al., 2018, Science
-*Aerobic Glycolysis*: Vaishnavi et al., 2010, PNAS; Glasser et al., 2015, NeuroImage
-*Cerebral Blood Flow*: Satterthwaite et al., 2014, PNAS
-*Gene Expression*: Burt et al., 2018, Nat Neurosci
-*NeuroSynth*: Yarkoni et al., 2011, Nat Methods
-*Externopyramidization*: Paquola et al., 2020, PLoS Biol / *HIST-G2*: Paquola et al., 2021, eLife
-*Cortical Thickness* Glasser et al., 2016, Nature
+*Anatomical Hierarchy*: Glasser and Van Essen, 2011, J Neurosci  
+*Functional Hierarchy*: Margulies et al., 2016, PNAS  
+*Evolutionary Hierarchy*: Hill et al., 2010, PNAS  
+*Allometric Scaling*: Reardon, Seidlitz, et al., 2018, Science  
+*Aerobic Glycolysis*: Vaishnavi et al., 2010, PNAS; Glasser et al., 2015, NeuroImage  
+*Cerebral Blood Flow*: Satterthwaite et al., 2014, PNAS  
+*Gene Expression*: Burt et al., 2018, Nat Neurosci  
+*NeuroSynth*: Yarkoni et al., 2011, Nat Methods  
+*Externopyramidization*: Paquola et al., 2020, PLoS Biol / *HIST-G2*: Paquola et al., 2021, eLife  
+*Cortical Thickness* Glasser et al., 2016, Nature  
