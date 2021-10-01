@@ -30,7 +30,7 @@ The rank ordering of each cortical area along the archetypal S-A axis can be fou
 
 Below is a detailed description of all files in PennLINC's S-A_ArchetypalAxis repo:
 
-*GLASSER360_MMP*
+***GLASSER360_MMP***
 <br>
 Includes code used to generate Figure 2A-D in Sydnor et al., 2021, Neuron.
 
@@ -41,7 +41,7 @@ Includes code used to generate Figure 2A-D in Sydnor et al., 2021, Neuron.
 * [Sensorimotor_Association_Axis_AverageRanks.csv](https://github.com/PennLINC/S-A_ArchetypalAxis/blob/main/Glasser360_MMP/Sensorimotor_Association_Axis_AverageRanks.csv): each parcel's average ranking (raw mean) and final ranking (re-ranked average rank) along the S-A axis. Average rankings were obtained by averaging individual parcel rankings across the 10 cortical features. Average rankings were re-ranked from 1-180 to derive the archetypal S-A axis (displayed in Figure 2A)
 
 
-*SCHAEFER400_17NETWORK* 
+***SCHAEFER400_17NETWORK*** 
 <br>
 Includes code to generate all brain maps in the Schaefer400 atlas.
 
