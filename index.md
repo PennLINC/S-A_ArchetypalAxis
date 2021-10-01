@@ -28,7 +28,7 @@ Raw data for the 10 cortical features can be found in the associated github repo
 The rank ordering of each cortical area along the archetypal S-A axis can be found in the repo in $atlas/Sensorimotor_Association_Axis_AverageRanks.csv; please cite the review if you use the S-A axis in your work. 
 <br>
 
-Below is a detailed description of all files in PennLINC's S-A_ArchetypalAxis repo:
+Below is a description of all files in PennLINC's S-A_ArchetypalAxis repo:
 
 ***GLASSER360_MMP***
 <br>
