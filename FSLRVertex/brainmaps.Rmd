@@ -1,0 +1,130 @@
+---
+title: "BrainMaps FSLR"
+author: "Valerie Jill Sydnor"
+output: 
+  html_document:
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+library(ciftiTools)
+ciftiTools.setOption('wb_path', '/Users/valeriesydnor/Software/workbench/')
+library(rgl)
+setwd("/Users/valeriesydnor/Software/S-A_ArchetypalAxis/FSLRVertex/")
+```
+
+Read in medial wall masks and surfaces
+```{r}
+medialwall.mask.leftcortex <- read.csv("medialwall.mask.leftcortex.csv", header = F, colClasses = c("logical")) #Left cortex medial wall mask
+medialwall.mask.rightcortex <- read.csv("medialwall.mask.rightcortex.csv", header = F, colClasses = c("logical")) #Right cortex medial wall mask
+
+surf.leftcortex <- read_surf("Q1-Q6_R440.L.midthickness.32k_fs_LR.surf.gii") #Left cortex surface file for visualization
+surf.rightcortex <- read_surf("Q1-Q6_R440.R.midthickness.32k_fs_LR.surf.gii") #Right cortex surface file for visualization
+```
+
+**Get Cortical Map Data**
+
+```{r}
+#function to extract cortical map data
+vertex_mapdata <- function(map){
+  
+  #read in cifti dscalar
+  cifti <- read_cifti(sprintf("%s.dscalar.nii", map))
+  
+  #extract vertex-level data from left and right hemispheres and return combined vector
+  lefthemi <- cifti$data$cortex_left[,1]
+  righthemi <- cifti$data$cortex_right[,1]
+  mapdata <- matrix(data=NA, nrow=59412, ncol=1)
+  mapdata[1:29696,1] <- lefthemi
+  mapdata[29697:59412,1] <- righthemi
+  return(mapdata)
+}
+```
+
+```{r, warning=F}
+measures <- c("T1T2ratio","G1.fMRI","Evolution.Expansion","AllometricScaling.PNC20mm","PET.AG","CBF","PC1.AHBA","PC1.Neurosynth","BigBrain.Histology","Cortical.Thickness")
+brains <- matrix(data=NA, nrow=59412, ncol=10) #29696 left cortex vertices plus 29716 right cortex vertices; 10 measures
+colnames(brains) <- measures
+brains <- as.data.frame(brains)
+
+for(num in c(1:length(measures))){
+  map <- measures[num]
+  map.data <- vertex_mapdata(map)
+  brains[,num] <- map.data}
+```
+
+**Derive Individual Axis Rankings (Whole Brain)**
+
+```{r}
+brains.ranked <- lapply(brains, function(x){ rank(x) }) #for each of the 10 cortical measures, derive unidimensional axis orderings by ranking by vertex value
+brains.ranked <- as.data.frame(brains.ranked) #format as df
+brains.ranked$T1T2ratio <- rank(-brains.ranked$T1T2ratio) # reverse order T1-weighted to T2-weighted ratio rankings so that sensorimotor vertices are ranked lower and association vertices are ranked higher
+brains.ranked$PC1.AHBA <- rank(-brains.ranked$PC1.AHBA) # reverse order PC1 of brain expressed genes rankings so that sensorimotor vertices are ranked lower and association vertices are ranked higher 
+brains.ranked$BigBrain.Histology <- rank(-brains.ranked$BigBrain.Histology) # reverse order histology rankings so that sensorimotor vertices are ranked lower and association vertices are ranked higher
+```
+
+**Archetypal Sensorimotor-Association Axis (Whole Brain)**
+
+```{r, message = F, warning = F}
+brains.average.rank <- rowMeans(brains.ranked) #average all 10 cortical rankings to get each vertex's average axis rank
+brains.average.rank <- as.data.frame(brains.average.rank) #format as df
+brains.average.rank$final.rank <- rank(brains.average.rank$brains.average.rank) #rerank vertices by average axis rank to visualize the archetypal sensorimotor-association axis 
+colnames(brains.average.rank) <- c("averagerank.wholebrain","finalrank.wholebrain")
+```
+
+```{r}
+#visualize the S-A axis
+cifti.SA.axis <- as_cifti(cortexL = brains.average.rank$finalrank.wholebrain[1:29696], cortexL_mwall = medialwall.mask.leftcortex$V1, cortexR = brains.average.rank$finalrank.wholebrain[29697:59412], cortexR_mwall = medialwall.mask.rightcortex$V1, surfL = surf.leftcortex, surfR = surf.rightcortex)
+view_cifti_surface(cifti.SA.axis, colors=c("magma"), zlim=c(1,59412), widget=TRUE)
+```
+
+```{r}
+#visualize with yellow-purple color scheme on inflated surfaces
+cifti.SA.axis <- as_cifti(cortexL = brains.average.rank$finalrank.wholebrain[1:29696], cortexL_mwall = medialwall.mask.leftcortex$V1, cortexR = brains.average.rank$finalrank.wholebrain[29697:59412], cortexR_mwall = medialwall.mask.rightcortex$V1)
+colorbar <- c("#ffc229", "#ffd476", "#ffe3a8", "#fff3d8", "#fffffe", "#e4d1e6", "#bc90c2", "#9656a2", "#6f1f8c")
+view_cifti_surface(cifti.SA.axis, colors=colorbar, zlim=c(1,59412), widget=TRUE)
+```
+
+**Repeat for Left and Right Hemispheres Individually**
+
+```{r}
+hemisphere.SAaxis <- function(hemi){
+  if(hemi == "left"){
+    brains.hemi <- brains[1:29696,]}
+  if(hemi == "right"){
+    brains.hemi <- brains[29697:59412,]}
+  
+  brains.ranked.hemi <- lapply(brains.hemi, function(x){ rank(x) }) 
+  brains.ranked.hemi <- as.data.frame(brains.ranked.hemi)
+  brains.ranked.hemi$T1T2ratio <- rank(-brains.ranked.hemi$T1T2ratio) 
+  brains.ranked.hemi$PC1.AHBA <- rank(-brains.ranked.hemi$PC1.AHBA) 
+  brains.ranked.hemi$BigBrain.Histology <- rank(-brains.ranked.hemi$BigBrain.Histology)
+  
+  brains.hemi.average.rank <- rowMeans(brains.ranked.hemi)
+  brains.hemi.average.rank <- as.data.frame(brains.hemi.average.rank)
+  brains.hemi.average.rank$final.rank.hemi <- rank(brains.hemi.average.rank$brains.hemi.average.rank)
+  return(brains.hemi.average.rank)
+}
+```
+
+```{r}
+rankings.lefthemisphere <- hemisphere.SAaxis("left")
+rankings.righthemisphere <- hemisphere.SAaxis("right")
+
+brains.average.rank$averagerank.hemisphere <- NA
+brains.average.rank$finalrank.hemisphere <- NA
+brains.average.rank$averagerank.hemisphere[1:29696] <- rankings.lefthemisphere$brains.hemi.average.rank
+brains.average.rank$finalrank.hemisphere[1:29696] <- rankings.lefthemisphere$final.rank.hemi
+brains.average.rank$averagerank.hemisphere[29697:59412] <- rankings.righthemisphere$brains.hemi.average.rank
+brains.average.rank$finalrank.hemisphere[29697:59412] <- rankings.righthemisphere$final.rank.hemi
+```
+
+
+**Save Output**
+
+```{r}
+write_cifti(cifti.SA.axis, "/Users/valeriesydnor/Software/S-A_ArchetypalAxis/FSLRVertex/SensorimotorAssociation.Axis.dscalar.nii")
+write.csv(brains, file="/Users/valeriesydnor/Software/S-A_ArchetypalAxis/FSLRVertex/brainmaps_fslr.csv", row.names = FALSE)
+write.csv(brains.average.rank, file="/Users/valeriesydnor/Software/S-A_ArchetypalAxis/FSLRVertex/Sensorimotor_Association_Axis_AverageRanks.csv", row.names = FALSE, quote = FALSE)
+```
+
