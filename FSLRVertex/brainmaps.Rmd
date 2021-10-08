@@ -70,6 +70,7 @@ brains.average.rank <- rowMeans(brains.ranked) #average all 10 cortical rankings
 brains.average.rank <- as.data.frame(brains.average.rank) #format as df
 brains.average.rank$final.rank <- rank(brains.average.rank$brains.average.rank) #rerank vertices by average axis rank to visualize the archetypal sensorimotor-association axis 
 colnames(brains.average.rank) <- c("averagerank.wholebrain","finalrank.wholebrain")
+brains.average.rank$finalrank.wholebrain.zscore <- as.numeric(scale(brains.average.rank$finalrank.wholebrain, center=TRUE, scale=TRUE))
 ```
 
 ```{r}
