@@ -1,5 +1,5 @@
 ---
-title: "BrainMaps FSLR"
+title: "BrainMaps FSLR (HCP/Cifti)"
 author: "Valerie Jill Sydnor"
 output: 
   html_document:
@@ -123,7 +123,7 @@ brains.average.rank$finalrank.hemisphere[29697:59412] <- rankings.righthemispher
 **Save Output**
 
 ```{r}
-write_cifti(cifti.SA.axis, "/Users/valeriesydnor/Software/S-A_ArchetypalAxis/FSLRVertex/SensorimotorAssociation.Axis.dscalar.nii")
+write_cifti(cifti.SA.axis, "/Users/valeriesydnor/Software/S-A_ArchetypalAxis/FSLRVertex/SensorimotorAssociation_Axis.dscalar.nii")
 write.csv(brains, file="/Users/valeriesydnor/Software/S-A_ArchetypalAxis/FSLRVertex/brainmaps_fslr.csv", row.names = FALSE)
 write.csv(brains.average.rank, file="/Users/valeriesydnor/Software/S-A_ArchetypalAxis/FSLRVertex/Sensorimotor_Association_Axis_AverageRanks.csv", row.names = FALSE, quote = FALSE)
 ```
