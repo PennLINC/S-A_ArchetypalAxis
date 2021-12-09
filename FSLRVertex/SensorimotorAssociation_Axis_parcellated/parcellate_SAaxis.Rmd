@@ -1,0 +1,45 @@
+---
+title: "Parcellated Sensorimotor-Association Axis"
+author: "Valerie Jill Sydnor"
+output: 
+  html_document:
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+library(ciftiTools)
+ciftiTools.setOption('wb_path', '/Users/valeriesydnor/Software/workbench/')
+library(cifti)
+setwd("/Users/valeriesydnor/Software/S-A_ArchetypalAxis")
+```
+
+**Script to parcellate the fslr/cifti Sensorimotor-Association Axis with commonly used cortical atlases**
+
+GLASSER360 Multimodal Parcellation
+
+```{r}
+command=sprintf("-cifti-parcellate ./FSLRVertex/SensorimotorAssociation_Axis.dscalar.nii ./FSLRVertex/SensorimotorAssociation_Axis_parcellated/atlas_dlabel_files/glasser_space-fsLR_den-32k_desc-atlas.dlabel.nii COLUMN ./FSLRVertex/SensorimotorAssociation_Axis_parcellated/SensorimotorAssociation.Axis.Glasser360.pscalar.nii")
+ciftiTools::run_wb_cmd(command, intern = FALSE, ignore.stdout = NULL, ignore.stderr = NULL)
+```
+
+SCHAEFER400 17 NETWORK Parcellation
+
+```{r}
+command=sprintf("-cifti-parcellate ./FSLRVertex/SensorimotorAssociation_Axis.dscalar.nii ./FSLRVertex/SensorimotorAssociation_Axis_parcellated/atlas_dlabel_files/schaefer_space-fsLR_den-32k_desc-400Parcels17Networks_atlas.dlabel.nii COLUMN ./FSLRVertex/SensorimotorAssociation_Axis_parcellated/SensorimotorAssociation.Axis.Schaefer400.17Networks.pscalar.nii")
+ciftiTools::run_wb_cmd(command, intern = FALSE, ignore.stdout = NULL, ignore.stderr = NULL)
+```
+
+SCHAEFER200 17 NETWORK Parcellation
+
+```{r}
+command=sprintf("-cifti-parcellate ./FSLRVertex/SensorimotorAssociation_Axis.dscalar.nii ./FSLRVertex/SensorimotorAssociation_Axis_parcellated/atlas_dlabel_files/schaefer_space-fsLR_den-32k_desc-200Parcels17Networks_atlas.dlabel.nii COLUMN ./FSLRVertex/SensorimotorAssociation_Axis_parcellated/SensorimotorAssociation.Axis.Schaefer200.17Networks.pscalar.nii")
+ciftiTools::run_wb_cmd(command, intern = FALSE, ignore.stdout = NULL, ignore.stderr = NULL)
+```
+
+GORDON333 Parcellation
+
+```{r}
+command=sprintf("-cifti-parcellate ./FSLRVertex/SensorimotorAssociation_Axis.dscalar.nii ./FSLRVertex/SensorimotorAssociation_Axis_parcellated/atlas_dlabel_files/gordon_space-fsLR_den-32k_desc-atlas.dlabel.nii COLUMN ./FSLRVertex/SensorimotorAssociation_Axis_parcellated/SensorimotorAssociation.Axis.Gordon333.pscalar.nii")
+ciftiTools::run_wb_cmd(command, intern = FALSE, ignore.stdout = NULL, ignore.stderr = NULL)
+```
+
