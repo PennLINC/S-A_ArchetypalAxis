@@ -61,6 +61,7 @@ Includes code to generate cortical maps in fslr 32k vertices (HCP surface space)
 * [SensorimotorAssociation_Axis.dscalar.nii](https://github.com/PennLINC/S-A_ArchetypalAxis/blob/main/FSLRVertex/SensorimotorAssociation_Axis.dscalar.nii): S-A axis rankings (finalrank.wholebrain) provided in cifti file format
 * [SensorimotorAssociation_Axis_LH.fslr32k.func.gii](https://github.com/PennLINC/S-A_ArchetypalAxis/blob/main/FSLRVertex/SensorimotorAssociation_Axis_LH.fslr32k.func.gii): left hemisphere S-A axis rankings (finalrank.wholebrain) provided in gifti metric file format
 * [SensorimotorAssociation_Axis_RH.fslr32k.func.gii](https://github.com/PennLINC/S-A_ArchetypalAxis/blob/main/FSLRVertex/SensorimotorAssociation_Axis_RH.fslr32k.func.gii): right hemisphere S-A axis rankings (finalrank.wholebrain) provided in gifti metric file format
+* [SensorimotorAssociation_Axis_parcellated](https://github.com/PennLINC/S-A_ArchetypalAxis/tree/main/FSLRVertex/SensorimotorAssociation_Axis_parcellated): this folder contains parcellated versions of the vertex-wise fslr S-A axis (pscalar.nii files) and the corresponding atlas_dlabel_files used for parcellation
 
 
 ***FSaverage5***
