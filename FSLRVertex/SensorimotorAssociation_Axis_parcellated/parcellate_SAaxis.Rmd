@@ -43,3 +43,9 @@ command=sprintf("-cifti-parcellate ./FSLRVertex/SensorimotorAssociation_Axis.dsc
 ciftiTools::run_wb_cmd(command, intern = FALSE, ignore.stdout = NULL, ignore.stderr = NULL)
 ```
 
+BRODMANN Area Atlas
+
+```{r}
+command=sprintf("-cifti-parcellate ./FSLRVertex/SensorimotorAssociation_Axis.dscalar.nii ./FSLRVertex/SensorimotorAssociation_Axis_parcellated/atlas_dlabel_files/brodmann09_space-fsLR_den-32k_desc-atlas.dlabel.nii COLUMN ./FSLRVertex/SensorimotorAssociation_Axis_parcellated/SensorimotorAssociation.Axis.BrodmannAreas.pscalar.nii -legacy-mode")
+ciftiTools::run_wb_cmd(command, intern = FALSE, ignore.stdout = NULL, ignore.stderr = NULL)
+```
